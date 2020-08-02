@@ -13,20 +13,39 @@ public class ParsingServiceImpl implements ParsingService {
         Stack<String> operators = new Stack<String>();
 
         for (String element: expression.split("\\b")) {
-            if (element.matches("\\d")) {
+            if (element.matches("\\d+")) {
                 resultString.add(element);
-            } else if ((element == "+") || (element == "-")) {
-                operators.push(element);
-            } else if ((element == "*") || (element == "/")) {
-                if ((operators.peek() != "*") || (operators.peek() != "/")) {
-                    operators.push(element);
+            } else if ((element.equals("+")) || (element.equals("-"))) {
+                if (!operators.isEmpty()) {
+                    if ((operators.peek().equals("+")) || (operators.peek().equals("-"))) {
+                        resultString.add(operators.pop());
+                        operators.push(element);
+                    } else if ((operators.peek().equals("*")) || (operators.peek().equals("/"))) {
+                        while (!operators.isEmpty()) {
+                            resultString.add(operators.pop());
+                        }
+                        operators.push(element);
+                    } else {
+                        operators.push(element);
+                    }
                 } else {
-                    resultString.add(element);
+                    operators.push(element);
+                }
+            } else if ((element.equals("*")) || (element.equals("/"))) {
+                if (!operators.isEmpty()) {
+                    if ((operators.peek().equals("*")) || (operators.peek().equals("/"))) {
+                        resultString.add(operators.pop());
+                        operators.push(element);
+                    } else {
+                        operators.push(element);
+                    }
+                } else {
+                    operators.push(element);
                 }
             }
         }
 
-        for (String element: operators) {
+        while (!operators.isEmpty()) {
             resultString.add(operators.pop());
         }
 
