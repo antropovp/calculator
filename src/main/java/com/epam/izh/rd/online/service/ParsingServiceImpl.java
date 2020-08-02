@@ -11,6 +11,7 @@ public class ParsingServiceImpl implements ParsingService {
         List<String> resultString = new ArrayList<String>();
         Stack<String> operators = new Stack<String>();
 
+        //TODO: "." support
         for (String element: expression.split("\\b")) {
             if (element.matches("\\d+")) {
                 resultString.add(element);
