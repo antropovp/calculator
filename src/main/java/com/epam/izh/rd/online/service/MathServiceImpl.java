@@ -32,19 +32,23 @@ public class MathServiceImpl implements MathService {
 
         double result = 0;
 
-        switch (operator) {
-            case '+':
-                result = operand1 + operand2;
-                break;
-            case '-':
-                result = operand1 - operand2;
-                break;
-            case '*':
-                result = operand1 * operand2;
-                break;
-            case '/':
-                result = operand1 / operand2;
-                break;
+        try {
+            switch (operator) {
+                case '+':
+                    result = operand1 + operand2;
+                    break;
+                case '-':
+                    result = operand1 - operand2;
+                    break;
+                case '*':
+                    result = operand1 * operand2;
+                    break;
+                case '/':
+                    result = operand1 / operand2;
+                    break;
+            }
+        } catch (ArithmeticException e) {
+            System.err.println(e.getMessage());
         }
 
         return result;
