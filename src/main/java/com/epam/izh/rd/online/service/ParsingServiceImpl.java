@@ -3,7 +3,6 @@ package com.epam.izh.rd.online.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
-import java.util.regex.Pattern;
 
 public class ParsingServiceImpl implements ParsingService {
 

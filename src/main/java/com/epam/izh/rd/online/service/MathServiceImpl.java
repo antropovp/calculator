@@ -18,11 +18,6 @@ public class MathServiceImpl implements MathService {
                     i -= 2;
                 }
             }
-
-            for (String element: expression) {
-                System.out.println(element);
-            }
-
         }
 
         return Double.parseDouble(expression.get(0));
