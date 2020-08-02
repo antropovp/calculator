@@ -3,7 +3,7 @@ package com.epam.izh.rd.online.service;
 public class InputValidatorImpl implements InputValidator {
 
     public boolean validate(String input) {
-        return doesBeginWithNumber(input) && hasOnlyNumbersAndOperators(input)
+        return (input != null) && doesBeginWithNumber(input) && hasOnlyNumbersAndOperators(input)
                 && !hasDoubleOperators(input);
     }
 
