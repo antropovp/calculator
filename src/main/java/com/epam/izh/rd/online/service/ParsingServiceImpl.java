@@ -10,11 +10,14 @@ public class ParsingServiceImpl implements ParsingService {
 
         List<String> resultString = new ArrayList<String>();
         Stack<String> operators = new Stack<String>();
-
-        //TODO: "." support
+        
         for (String element: expression.split("\\b")) {
             if (element.matches("\\d+")) {
-                resultString.add(element);
+                if (!resultString.isEmpty() && resultString.get(resultString.size() - 1).matches("[\\d]*\\.")) {
+                    resultString.set(resultString.size() - 1, resultString.get(resultString.size() - 1) + element);
+                } else {
+                    resultString.add(element);
+                }
             } else if ((element.equals("+")) || (element.equals("-"))) {
                 if (!operators.isEmpty()) {
                     if ((operators.peek().equals("+")) || (operators.peek().equals("-"))) {
@@ -41,6 +44,12 @@ public class ParsingServiceImpl implements ParsingService {
                     }
                 } else {
                     operators.push(element);
+                }
+            } else if (element.matches("[\\d]*\\.")) {
+                if (!resultString.isEmpty() && resultString.get(resultString.size() - 1).matches("\\d+")) {
+                    resultString.set(resultString.size() - 1, resultString.get(resultString.size() - 1) + element);
+                } else {
+                    resultString.add(element);
                 }
             }
         }
