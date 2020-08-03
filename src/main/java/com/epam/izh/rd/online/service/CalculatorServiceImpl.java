@@ -19,6 +19,6 @@ public class CalculatorServiceImpl {
             input = consoleService.read();
         }
 
-        System.out.print("= " + mathService.calculate(parsingService.parseReversedPolish(input)));
+        System.out.print("= " + mathService.calculate(parsingService.parseReversePolish(input)));
     }
 }

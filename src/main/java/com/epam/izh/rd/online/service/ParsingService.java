@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface ParsingService {
 
-    List<String> parseReversedPolish(String expression);
+    List<String> parseReversePolish(String expression);
 }

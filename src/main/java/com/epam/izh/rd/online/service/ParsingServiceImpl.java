@@ -6,41 +6,53 @@ import java.util.Stack;
 
 public class ParsingServiceImpl implements ParsingService {
 
-    public List<String> parseReversedPolish(String expression) {
+    private String[] operatorsPriority = {"[+\\-]", "[*/]"};
+
+    public List<String> parseReversePolish(String expression) {
 
         List<String> resultString = new ArrayList<String>();
         Stack<String> operators = new Stack<String>();
 
-        //TODO: "." support
         for (String element: expression.split("\\b")) {
             if (element.matches("\\d+")) {
-                resultString.add(element);
-            } else if ((element.equals("+")) || (element.equals("-"))) {
-                if (!operators.isEmpty()) {
-                    if ((operators.peek().equals("+")) || (operators.peek().equals("-"))) {
-                        resultString.add(operators.pop());
-                        operators.push(element);
-                    } else if ((operators.peek().equals("*")) || (operators.peek().equals("/"))) {
-                        while (!operators.isEmpty()) {
-                            resultString.add(operators.pop());
-                        }
-                        operators.push(element);
-                    } else {
-                        operators.push(element);
-                    }
+                if (!resultString.isEmpty() && resultString.get(resultString.size() - 1).matches("[\\d]*\\.")) {
+                    resultString.set(resultString.size() - 1, resultString.get(resultString.size() - 1) + element);
                 } else {
-                    operators.push(element);
+                    resultString.add(element);
                 }
-            } else if ((element.equals("*")) || (element.equals("/"))) {
-                if (!operators.isEmpty()) {
-                    if ((operators.peek().equals("*")) || (operators.peek().equals("/"))) {
-                        resultString.add(operators.pop());
-                        operators.push(element);
-                    } else {
-                        operators.push(element);
-                    }
+            } else if (element.matches("[\\d]*\\.")) {
+                if (!resultString.isEmpty() && resultString.get(resultString.size() - 1).matches("\\d+")) {
+                    resultString.set(resultString.size() - 1, resultString.get(resultString.size() - 1) + element);
                 } else {
-                    operators.push(element);
+                    resultString.add(element);
+                }
+            } else {
+                for (int j = 0; j < operatorsPriority.length; j++) {
+                    if (element.matches(operatorsPriority[j])) {
+                        if (!operators.isEmpty()) {
+                            if (operators.peek().matches(operatorsPriority[j])) {
+                                resultString.add(operators.pop());
+                                operators.push(element);
+                            } else if ((j < operatorsPriority.length - 1)
+                                    && operators.peek().matches(operatorsPriority[j + 1])) {
+                                if (operatorsPriority[j - 1] == null) {
+                                    while (!operators.isEmpty()) {
+                                        resultString.add(operators.pop());
+                                    }
+                                } else {
+                                    while ((operators.peek().matches(operatorsPriority[j - 1]))) {
+                                        resultString.add(operators.pop());
+                                    }
+                                }
+                                operators.push(element);
+                            } else {
+                                operators.push(element);
+                            }
+                        } else {
+                            operators.push(element);
+                        }
+                        break;
+                    }
                 }
             }
         }
@@ -51,6 +63,4 @@ public class ParsingServiceImpl implements ParsingService {
 
         return resultString;
     }
-
-
 }
