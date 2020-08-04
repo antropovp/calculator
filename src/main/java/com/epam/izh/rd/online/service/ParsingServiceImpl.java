@@ -35,7 +35,7 @@ public class ParsingServiceImpl implements ParsingService {
                                 operators.push(element);
                             } else if ((j < operatorsPriority.length - 1)
                                     && operators.peek().matches(operatorsPriority[j + 1])) {
-                                if (operatorsPriority[j - 1] == null) {
+                                if (j == 0) {
                                     while (!operators.isEmpty()) {
                                         resultString.add(operators.pop());
                                     }
