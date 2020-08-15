@@ -10,8 +10,8 @@ public class ParsingServiceImpl implements ParsingService {
 
     public List<String> parseReversePolish(String expression) {
 
-        List<String> resultString = new ArrayList<String>();
-        Stack<String> operators = new Stack<String>();
+        List<String> resultString = new ArrayList<>();
+        Stack<String> operators = new Stack<>();
 
         for (String element: expression.split("\\b")) {
             if (element.matches("\\d+")) {

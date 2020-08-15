@@ -72,4 +72,46 @@ public class Providers {
         );
     }
 
+    // MathServiceTest
+
+    public static Stream<Arguments> testOperation() {
+        return Stream.of(
+                arguments(7, 5, '+', 12),
+                arguments(7, 5, '-', 2),
+                arguments(6, 2, '/', 3)
+        );
+    }
+
+    public static Stream<Arguments> testCalculate() {
+
+        List<String> expression1 = new ArrayList<>();
+        expression1.add("7");
+        expression1.add("+");
+        expression1.add("5");
+
+        List<String> expression2 = new ArrayList<>();
+        expression2.add("7");
+        expression2.add("*");
+        expression2.add("5");
+        expression2.add("-");
+        expression2.add("3.4");
+
+        List<String> expression3 = new ArrayList<>();
+        expression3.add(".2");
+        expression3.add("-");
+        expression3.add("5");
+        expression3.add("*");
+        expression3.add("2");
+        expression3.add("-");
+        expression3.add("1");
+        expression3.add("/");
+        expression3.add("5");
+
+        return Stream.of(
+                arguments(expression1, 12),
+                arguments(expression2, 31.6),
+                arguments(expression3, -10)
+        );
+    }
+
 }
