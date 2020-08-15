@@ -7,5 +7,5 @@ public interface InputValidator {
     boolean doesBeginWithNumber(String input);
     boolean doesEndWithNumber(String input);
     boolean hasOnlyNumbersAndOperators(String input);
-    boolean hasDoubleOperators(String input);
+    boolean hasNoDoubleOperators(String input);
 }

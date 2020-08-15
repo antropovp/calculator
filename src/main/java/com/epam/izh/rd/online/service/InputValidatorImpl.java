@@ -4,7 +4,7 @@ public class InputValidatorImpl implements InputValidator {
 
     public boolean validate(String input) {
         return (input != null) && doesBeginWithNumber(input) && doesEndWithNumber(input) && hasOnlyNumbersAndOperators(input)
-                && !hasDoubleOperators(input);
+                && hasNoDoubleOperators(input);
     }
 
     public boolean doesBeginWithNumber(String input) {
@@ -20,18 +20,18 @@ public class InputValidatorImpl implements InputValidator {
         return input.matches("[\\d+\\-*/.]+");
     }
 
-    public boolean hasDoubleOperators(String input) {
+    public boolean hasNoDoubleOperators(String input) {
 
         String[] elements = input.split("\\b");
 
         for (int i = 0; i < elements.length; i++) {
             if (elements[i].matches("[^\\d.]*")) {
                 if ((elements[i].length() > 1) || (elements[i+1].matches("[^\\d.]*"))) {
-                    return true;
+                    return false;
                 }
             }
         }
 
-        return false;
+        return true;
     }
 }
