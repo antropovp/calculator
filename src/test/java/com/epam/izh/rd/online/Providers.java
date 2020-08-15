@@ -85,27 +85,30 @@ public class Providers {
     public static Stream<Arguments> testCalculate() {
 
         List<String> expression1 = new ArrayList<>();
+        // 7+5
         expression1.add("7");
-        expression1.add("+");
         expression1.add("5");
+        expression1.add("+");
 
         List<String> expression2 = new ArrayList<>();
+        // 7*5-3.4
         expression2.add("7");
-        expression2.add("*");
         expression2.add("5");
-        expression2.add("-");
+        expression2.add("*");
         expression2.add("3.4");
+        expression2.add("-");
 
         List<String> expression3 = new ArrayList<>();
+        // .2-5*2-1/5
         expression3.add(".2");
-        expression3.add("-");
         expression3.add("5");
-        expression3.add("*");
         expression3.add("2");
+        expression3.add("*");
         expression3.add("-");
         expression3.add("1");
-        expression3.add("/");
         expression3.add("5");
+        expression3.add("/");
+        expression3.add("-");
 
         return Stream.of(
                 arguments(expression1, 12),
