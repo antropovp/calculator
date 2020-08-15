@@ -54,17 +54,17 @@ public class Providers {
 
         List<String> result1 = new ArrayList<>();
         result1.add("7");
-        result1.add("+");
         result1.add("5");
+        result1.add("+");
 
         List<String> result2 = new ArrayList<>();
         result2.add("7");
-        result2.add("+");
         result2.add("1.2");
-        result2.add("/");
         result2.add("4");
-        result2.add("-");
+        result2.add("/");
+        result2.add("+");
         result2.add("85");
+        result2.add("-");
 
         return Stream.of(
                 arguments("7+5", result1),
