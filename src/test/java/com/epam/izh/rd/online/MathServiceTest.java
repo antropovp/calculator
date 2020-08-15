@@ -13,10 +13,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MathServiceTest {
 
-    private MathService mathService;
+    private static MathService mathService;
 
     @BeforeAll
-    private void setup() {
+    static void setup() {
         mathService = new MathServiceImpl();
     }
 

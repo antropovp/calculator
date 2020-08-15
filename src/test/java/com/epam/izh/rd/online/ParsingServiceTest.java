@@ -13,10 +13,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ParsingServiceTest {
 
-    private ParsingService parsingService;
+    private static ParsingService parsingService;
 
     @BeforeAll
-    private void setup() {
+    static void setup() {
         parsingService = new ParsingServiceImpl();
     }
 

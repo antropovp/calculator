@@ -11,10 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class InputValidatorTest {
 
-    private InputValidator inputValidator;
+    private static InputValidator inputValidator;
 
     @BeforeAll
-    private void setup() {
+    static void setup() {
         inputValidator = new InputValidatorImpl();
     }
 
