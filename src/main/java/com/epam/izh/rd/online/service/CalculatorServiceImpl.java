@@ -12,7 +12,6 @@ public class CalculatorServiceImpl {
     public void start() {
 
         System.out.print("Write the expression: ");
-        input = consoleService.read();
 
         boolean isValid = false;
         do {
