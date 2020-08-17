@@ -1,5 +1,9 @@
 package com.epam.izh.rd.online;
 
+import com.epam.izh.rd.online.exception.DoesNotBeginWithNumber;
+import com.epam.izh.rd.online.exception.DoesNotEndWithNumber;
+import com.epam.izh.rd.online.exception.DoubleOperatorsException;
+import com.epam.izh.rd.online.exception.InvalidCharacterException;
 import com.epam.izh.rd.online.service.InputValidator;
 import com.epam.izh.rd.online.service.InputValidatorImpl;
 import org.junit.jupiter.api.BeforeAll;
@@ -21,29 +25,37 @@ public class InputValidatorTest {
     @ParameterizedTest
     @MethodSource("com.epam.izh.rd.online.Providers#testDoesBeginWithNumber")
     @DisplayName("Тест метода InputValidator.doesBeginWithNumber(String input)")
-    void testDoesBeginWithNumber(String param, boolean expected) {
+    void testDoesBeginWithNumber(String param, boolean expected) throws DoesNotBeginWithNumber {
         assertEquals(expected, inputValidator.doesBeginWithNumber(param), "Для входного параметра: " + param);
     }
 
     @ParameterizedTest
     @MethodSource("com.epam.izh.rd.online.Providers#testDoesEndWithNumber")
     @DisplayName("Тест метода InputValidator.doesEndWithNumber(String input)")
-    void testDoesEndWithNumber(String param, boolean expected) {
+    void testDoesEndWithNumber(String param, boolean expected) throws DoesNotEndWithNumber {
         assertEquals(expected, inputValidator.doesEndWithNumber(param), "Для входного параметра: " + param);
     }
 
     @ParameterizedTest
     @MethodSource("com.epam.izh.rd.online.Providers#testHasOnlyNumbersAndOperators")
     @DisplayName("Тест метода InputValidator.hasOnlyNumbersAndOperators(String input)")
-    void testHasOnlyNumbersAndOperators(String param, boolean expected) {
+    void testHasOnlyNumbersAndOperators(String param, boolean expected) throws InvalidCharacterException {
         assertEquals(expected, inputValidator.hasOnlyNumbersAndOperators(param), "Для входного параметра: " + param);
     }
 
     @ParameterizedTest
     @MethodSource("com.epam.izh.rd.online.Providers#testHasNoDoubleOperators")
     @DisplayName("Тест метода InputValidator.hasNoDoubleOperators(String input)")
-    void testHasNoDoubleOperators(String param, boolean expected) {
+    void testHasNoDoubleOperators(String param, boolean expected) throws DoubleOperatorsException {
         assertEquals(expected, inputValidator.hasNoDoubleOperators(param), "Для входного параметра: " + param);
     }
 
+//    @Test
+//    @DisplayName("Тест метода InputValidator.doesBeginWithNumber(String input) кейс 3")
+//    void testDoesBeginWithNumberCase3(String input) {
+//        assertThrows(IllegalArgumentException.class,
+//                () -> inputValidator.doesBeginWithNumber(input),
+//                "Неверный символ в начале выражения."
+//        );
+//    }
 }

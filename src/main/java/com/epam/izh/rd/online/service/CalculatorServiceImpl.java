@@ -14,10 +14,17 @@ public class CalculatorServiceImpl {
         System.out.print("Write the expression: ");
         input = consoleService.read();
 
-        while (!inputValidator.validate(input)) {
-            System.out.println("Invalid input. Try again.");
+        boolean isValid = false;
+        do {
             input = consoleService.read();
-        }
+
+            try {
+                isValid = inputValidator.validate(input);
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+                System.out.println("Invalid input. Try again.");
+            }
+        } while (isValid == false);
 
         System.out.print("= " + mathService.calculate(parsingService.parseReversePolish(input)));
     }
