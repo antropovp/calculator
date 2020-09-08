@@ -12,6 +12,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class InputValidatorTest {
 
@@ -27,6 +28,8 @@ public class InputValidatorTest {
     @DisplayName("Тест метода InputValidator.doesBeginWithNumber(String input)")
     void testDoesBeginWithNumber(String param, boolean expected) throws DoesNotBeginWithNumber {
         assertEquals(expected, inputValidator.doesBeginWithNumber(param), "Для входного параметра: " + param);
+        assertThrows(DoesNotBeginWithNumber.class,
+                () -> inputValidator.doesBeginWithNumber("+7+5"), "Error: Doesn't begin with a number.");
     }
 
     @ParameterizedTest
@@ -34,6 +37,8 @@ public class InputValidatorTest {
     @DisplayName("Тест метода InputValidator.doesEndWithNumber(String input)")
     void testDoesEndWithNumber(String param, boolean expected) throws DoesNotEndWithNumber {
         assertEquals(expected, inputValidator.doesEndWithNumber(param), "Для входного параметра: " + param);
+        assertThrows(DoesNotEndWithNumber.class,
+                () -> inputValidator.doesEndWithNumber("7+5+"), "Error: Doesn't end with a number.");
     }
 
     @ParameterizedTest
@@ -41,6 +46,12 @@ public class InputValidatorTest {
     @DisplayName("Тест метода InputValidator.hasOnlyNumbersAndOperators(String input)")
     void testHasOnlyNumbersAndOperators(String param, boolean expected) throws InvalidCharacterException {
         assertEquals(expected, inputValidator.hasOnlyNumbersAndOperators(param), "Для входного параметра: " + param);
+        assertThrows(InvalidCharacterException.class,
+                () -> inputValidator.hasOnlyNumbersAndOperators("7+5/4-8*a"),
+                "Error: Contains invalid characters.");
+        assertThrows(InvalidCharacterException.class,
+                () -> inputValidator.hasOnlyNumbersAndOperators("1?0"),
+                "Error: Contains invalid characters.");
     }
 
     @ParameterizedTest
@@ -48,14 +59,12 @@ public class InputValidatorTest {
     @DisplayName("Тест метода InputValidator.hasNoDoubleOperators(String input)")
     void testHasNoDoubleOperators(String param, boolean expected) throws DoubleOperatorsException {
         assertEquals(expected, inputValidator.hasNoDoubleOperators(param), "Для входного параметра: " + param);
+        assertThrows(DoubleOperatorsException.class,
+                () -> inputValidator.hasNoDoubleOperators("7++5"),
+                "Error: Has more than one operator in a row.");
+        assertThrows(DoubleOperatorsException.class,
+                () -> inputValidator.hasNoDoubleOperators("7+5-4//2"),
+                "Error: Has more than one operator in a row.");
     }
 
-//    @Test
-//    @DisplayName("Тест метода InputValidator.doesBeginWithNumber(String input) кейс 3")
-//    void testDoesBeginWithNumberCase3(String input) {
-//        assertThrows(IllegalArgumentException.class,
-//                () -> inputValidator.doesBeginWithNumber(input),
-//                "Неверный символ в начале выражения."
-//        );
-//    }
 }
