@@ -39,11 +39,15 @@ public class MathServiceImpl implements MathService {
                     result = operand1 * operand2;
                     break;
                 case '/':
+                    if (operand2 == 0) {
+                        throw new IllegalArgumentException("Cannot divide by zero.");
+                    }
                     result = operand1 / operand2;
                     break;
             }
-        } catch (ArithmeticException e) {
-            System.err.println(e.getMessage());
+        } catch (IllegalArgumentException e) {
+            result = 0;
+            System.out.println(e.getMessage() + " Result is set to 0.");
         }
 
         return result;
